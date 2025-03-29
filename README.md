@@ -280,9 +280,9 @@ networks:
     driver: bridge
 --------------------------------------------------------------------------
 ```
-## Dado isto, copie o endereço IPv4 público da instância e entre em uma nova guia.
+- Dado isto, copie o endereço IPv4 público da instância e entre em uma nova guia.
 
-## Feito!
+- Feito!
 
 </details>
 </div>
