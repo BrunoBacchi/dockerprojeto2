@@ -2,7 +2,7 @@
 
 > **IMPORTANTE**: Para que o projeto seja concluído com sucesso você necessita ter o Linux instalado em sua máquina, pois o criador deste projeto utilizou o linux para isso, pode ser qualquer um de seu gosto. O que foi utilizado aqui é o Fedora 41.
 
-### Estágios do Projeto: 👨‍💻
+### Estágios do Projeto 👨‍💻
 
 - Rodar o wordpress local;
 - Criar a VPC, EC2
