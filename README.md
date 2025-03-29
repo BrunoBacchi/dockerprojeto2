@@ -165,7 +165,7 @@ volumes:
 
 </div>
 
-## Etapa inicial 🤖: Criando a topologia de rede, os grupos de segurança em teste sem o ALB e ASG:
+## Etapa inicial 🤖 - Criando a topologia de rede, os grupos de segurança em teste sem o ALB e ASG:
 <div>
     <details align=¨left¨>
     <summary></summary>
@@ -288,7 +288,7 @@ networks:
 </div>
 
 
-## Etapa final 🌐: Aplicando WordPress com auto-scaling group, balanceador de carga, cloudwatch e regra de scaling 
+## Etapa final 🌐 - Aplicando WordPress com auto-scaling group, balanceador de carga, cloudwatch e regra de scaling 
 <div>
     <details align=¨left¨>
     <summary></summary>
