@@ -1,0 +1,20 @@
+services:
+  web:
+    image: wordpress
+    restart: always
+    ports:
+      - "80:80"
+    environment:
+      WORDPRESS_DB_HOST: db-rds.c3qiqewy6tgo.us-east-1.rds.amazonaws.com
+      WORDPRESS_DB_USER: toguro
+      WORDPRESS_DB_PASSWORD: togurobroxa
+      WORDPRESS_DB_NAME: rdsprojetinho
+    volumes:
+      - /wordpress:/var/www/html
+    networks:
+      - tunel
+
+networks:
+  tunel:
+    driver: bridge
+
