@@ -13,7 +13,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo mkdir -p /wordpress
 sudo mount -t efs -o tls fs-0a7013f9d673d0e91:/ /wordpress
 
-wget -O /home/ec2-user/docker-compose.yml https://raw.githubusercontent.com/Daijinpala/AVA4_24032025/refs/heads/main/POTATO%20SCRIPT/docker-compose.yml
+wget -O /home/ec2-user/docker-compose.yml https://raw.githubusercontent.com/BrunoBacchi/dockerprojeto2/refs/heads/main/docker-compose.yml
 sudo chown ec2-user:ec2-user /home/ec2-user/docker-compose.yml
 
 cd /home/ec2-user
