@@ -11,7 +11,7 @@ sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 
 sudo mkdir -p /wordpress
-sudo mount -t efs -o tls fs-0a7013f9d673d0e91:/ /wordpress
+sudo mount -t efs -o tls fs-0ddcb398f47d32fe2: /wordpress
 
 wget -O /home/ec2-user/docker-compose.yml https://raw.githubusercontent.com/BrunoBacchi/dockerprojeto2/refs/heads/main/docker-compose.yml
 sudo chown ec2-user:ec2-user /home/ec2-user/docker-compose.yml
