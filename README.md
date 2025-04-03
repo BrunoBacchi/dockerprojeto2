@@ -469,41 +469,91 @@ networks:
 - Em dados de usuário coloque o ¨userdata¨ que está em >Alterando o userdata e o docker-compose.yml para que tenha nossas informações< na explicação anterior
 ```
 
-## Criando o ASG com o ALB 
+## Criando um CLB
+```
+- Vá em load balancer para criar um
+- Selecione o CLB, ele irá aparecer no menu adicional de geração anterior > Vá em "Criar"
+- Depois de clicar em criar, coloque um nome dele e escolhe as subnets responsáveis pelo web server, no caso as públicas
+- Marque em esquema (voltado para a internet)
+- Selecione o VPC do projeto
+- Marque as duas zonas de disponibilidade 
+
+- Altere onde será feito o teste de HC, em padrão ele vem como /index.html
+- Avance e finalize.
+
+```
+## Criando o ASG com o ALB/CLB
 
 ```
  - Volte para EC2
  - Procure no lado esquerdo o auto scaling group
  - Criar auto scaling group
  - Colocar um nome (ex: ASG-WebServer) e escolher o launch template que criamos anteriormente
- - Em zonas de disponibilidade e sub-nets escolha as sub-nets pulbicas de zonas diferentes
+ - Em zonas de disponibilidade e sub-nets escolha as sub-nets públicas de zonas diferentes
  - Distruibição de disponibilidade deixe mem melhor esforço equilibrado
  - Avance
 
- - Em balanceamento de carga deixe em anexar um novo balanceador de carga
+ - Em balanceamento de carga deixe em anexar um balanceador de carga existente
+ - Clique em "Escolher entre os Classic Load Balancers"
+ - Marque o CLB criado anteriormente
+
+```
+
+## Caso queira utilizar o ALB
+
+```
+
+ - Marque em anexar um novo balanceador de carga 
  - EM anexar um novo balanceador de carga marque application load balancer
  - Deixe o o nome do balanceador de carga como: LoadBalanceWordPress
  - Marque >internet-fancing< em esquema de balanceador de carga
- - Em verificações de integridade, ative a vaixinha de verificações de integridade do Elastic Load balancing
+ - Em verificações de integridade, ative a caixinha de verificações de integridade do Elastic Load balancing
  - Avance
 
  - Troque a quantidade de máquinas minimas e maximas conforme o pedido do cliente
- - Futuramente você pode trocar a politicá de escalabilidade por uma personalizada do CloudWhatch
+ - Futuramente você pode trocar a politicá de escalabilidade por uma personalizada do CloudWatch
  - O tipo de métrica marque média de utilização da CPU
  - O valor do destino marque como 80
  - Habilite o monitoramento do cloudwatch
  - Avance
 
  - Crie uma tag personalizada para saber quais são as instancias criadas pelo ASG (Exemplo: Name - ASGWordpress)
- - Entre no seu loadbalancer, se você criou ele pelo ASG ele vai vir como padrão o grupo de segurança do seu webserver troque pelo o do ALB criado anteriormente, marque o seu load balance, vá em segurança > editar > edite o grupo de segurança sg_webserver para sg_alb
+ - Entre no seu loadbalancer, se você criou ele pelo ASG ele vai vir como padrão o grupo de segurança do seu webserver troque pelo o do ALB criado anteriormente.
+ - Marque o seu load balance, vá em segurança > editar > edite o grupo de segurança sg_webserver para sg_alb
  - Após terminar os testes reduza o numero de maquinas minimas e maximas para 0 no ASG (Auto Scaling Group), ele mesmo vai encerrar as instancias, pode demorar
 ```
 
-## Testing
+## Monitoramento e manutenção com a CloudWatch
 
 ```
-- EM EC2 - Verifique a criação das ec2 e suas zonas de disponibilidade
-- Cole o ¨user-data¨ de antes e execute ele já na máquina pelo ssh da instancia(Ele não está executando pelo userdata más executa com a gente fazendo pelo ssh)
+- EM EC2 - Vá para grupos do Auto Scaling - Selecione o ASG/CLB que criou
+- Em criar uma politica de escalabilidade dinâmica - escolha: escalabilidade simples
+- Coloque um nome e por fim adicione instancias 
+
+- Vá para o Cloudwatch
+- Vá em alarme e crie um alarme
+- Clique pra selecionar uma métrica
+- Defina se a CPU estiver sendo utilizada até 85%, ele executará a política de escalabilidade automática
+(Para fazer isso, vá em condições  > Estático >  Maior > que... > Selecione o quanto % você quer que ele ative
+- Avance
+
+- Deixe em alarme na ação do auto scaling
+- Em selecionar um grupo selecione o que criamos
+- Execute a seguinte ação em Poll (Adicionar 2 instâncias)
+- Avance
+
+- De um nome pro alarme
+- Avance e finalize
+- Fim
+
+- Caso queira acionar o alarme que foi criado anteriormente, vamos utilizar o cloudshell
+- Copie o seguinte código:
+
+- aws cloudwatch set-alarm-state --alarm-name "nome do alarme que criamos" --state-value ALARM --state-reason "motivo do teste"
+- Veja os resultados aparecerem e confirmar que está tudo funcionando.
+
+
+
 - Entre usando o DNS do seu load balance pelo navegador
 - Acesse as métricas pelo CloudWatch
 - Feito!
