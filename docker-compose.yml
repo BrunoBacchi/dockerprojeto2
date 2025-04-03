@@ -8,7 +8,7 @@ services:
       WORDPRESS_DB_HOST: dbwordpress.c3qiqewy6tgo.us-east-1.rds.amazonaws.com
       WORDPRESS_DB_USER: toguro
       WORDPRESS_DB_PASSWORD: togurobroxa
-      WORDPRESS_DB_NAME: acadimia
+      WORDPRESS_DB_NAME: dbprojetinho
     volumes:
       - /wordpress:/var/www/html
     networks:
